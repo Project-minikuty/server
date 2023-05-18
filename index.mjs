@@ -13,8 +13,10 @@ app.use(express.json());
 // Load the /posts routes
 app.use("/auth", posts);
 
-// Global error handling
-// This should be the last route else any after it wont work
+app.get("/",(req,res)=>{
+  res.send("server up and running");
+  });
+
 app.use('*', (req, res) => {
   res.status(404).json({
     success: 'false',
@@ -25,9 +27,7 @@ app.use('*', (req, res) => {
     },
   });
 });
-app.use("/",(req,res)=>{
-res.send("server up and running");
-});
+
 
 // start the Express server
 app.listen(PORT, () => {
