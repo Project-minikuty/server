@@ -14,7 +14,10 @@ app.use(express.json());
 app.use("/auth", posts);
 
 app.get("/",(req,res)=>{
+  console.time();
   res.send("server up and running");
+  console.log(req.url);
+  console.timeEnd();
   });
 
 app.use('*', (req, res) => {
