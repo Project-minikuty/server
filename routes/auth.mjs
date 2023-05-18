@@ -14,6 +14,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/validate", async (req, res) => {
+    console.time("validation");
   let users = db.collection("users");
   
   users.findOne(
@@ -33,15 +34,19 @@ router.get("/validate", async (req, res) => {
           }
         } else {
           res.status(401).json({ message: "password wrong" });
+          console.log(req.url);
         }
       } else {
         res.status(404).json({ message: "user not found" });
+        console.log(req.url);
       }
     }
   );
+  console.timeEnd("validation");
 });
 
 router.post("/create", (req, res) => {
+  console.time("creation")
   let users = db.collection("users");
   let id = ObjectId();
   let newUser = {
@@ -75,6 +80,7 @@ router.post("/create", (req, res) => {
       }
     }
   );
+  console.timeEnd("creation");
 });
 
 export default router;
