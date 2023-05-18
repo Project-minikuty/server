@@ -25,7 +25,9 @@ app.use('*', (req, res) => {
     },
   });
 });
-
+app.use("/",(req,res)=>{
+res.send("server up and running");
+});
 
 // start the Express server
 app.listen(PORT, () => {
