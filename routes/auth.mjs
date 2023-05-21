@@ -37,7 +37,7 @@ router.get("/validate", async (req, res) => {
           console.log(req.url);
         }
       } else {
-        res.status(404).json({ message: "user not found" });
+        res.status(400).json({ message: "user not found" });
         console.log(req.url);
       }
     }
