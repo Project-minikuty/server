@@ -26,18 +26,18 @@ router.get("/validate", async (req, res) => {
       } else if (result) {
         if (result.password == req.query.password) {
           if (result.suspended) {
-            res.status(200).json({ message: "user suspended by admin",access:false });
+            res.status(200).json({ message: "User suspended by admin",access:false });
           } else {
-            res.status(200).json({ message: "success", type: result.type,access:true });
+            res.status(200).json({ message: "Success", type: result.type,access:true });
             console.log("user logged");
             console.log(result);
           }
         } else {
-          res.status(200).json({ message: "password wrong",access:false });
+          res.status(200).json({ message: `Password for ${req.query.username} is wrong`,access:false });
           console.log(req.url);
         }
       } else {
-        res.status(200).json({ message: "user not found",access:false });
+        res.status(200).json({ message: "User not found",access:false });
         console.log(req.url);
       }
     }
