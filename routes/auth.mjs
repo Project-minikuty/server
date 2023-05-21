@@ -35,6 +35,7 @@ router.get("/validate", async (req, res) => {
         } else {
           res.status(200).json({ message: `Password for ${req.query.username} is wrong`,access:false });
           console.log(req.url);
+          
         }
       } else {
         res.status(200).json({ message: "User not found",access:false });
