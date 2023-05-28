@@ -15,7 +15,7 @@ router.get("/validate", async (req, res) => {
   let users = db.collection("users");
   
   users.findOne(
-    { name: req.query.username },
+    { username: req.query.username },
     { projection: { _id: 0 } },
     (err, result) => {
       if (err) {
