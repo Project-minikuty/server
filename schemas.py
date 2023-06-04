@@ -1,12 +1,15 @@
 
-from pydantic import BaseModel 
+from pydantic import BaseModel
 from bson import ObjectId
+
+
 class validateBody(BaseModel):
-    username : str | None ="hello"
+    username: str | None = "hello"
+
 
 class createUserBody(BaseModel):
-    username : str
-    password : str
+    username: str
+    password: str
     name: str
     type: int
     age: int | None = None

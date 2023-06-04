@@ -16,27 +16,27 @@ db = get_db()
 async def create_user(admin_id: str, body: createUserBody):
     details = {1: ["admins", {
         "username": body.username,
-        "name":body.name
-    }],
-    2:
-    ["doctors",{
-        "username": body.username,
         "name": body.name
     }],
-    3:[
-        "parents",{
+        2:
+        ["doctors", {
+            "username": body.username,
+            "name": body.name
+        }],
+        3: [
+        "parents", {
             "username": body.username,
             "name": body.name,
             "age": body.age,
-            "height":body.height,
-            "weight":body.weight,
-            "gender":body.gender,
-            "bloodGroup":body.bloodGroup,
-            "guardianName":body.guardianName,
-            "occupation":body.guardianName,
-            "phoneNumber":body.phoneNumber,
-            "address":body.address,
-            "dob":body.dob
+            "height": body.height,
+            "weight": body.weight,
+            "gender": body.gender,
+            "bloodGroup": body.bloodGroup,
+            "guardianName": body.guardianName,
+            "occupation": body.guardianName,
+            "phoneNumber": body.phoneNumber,
+            "address": body.address,
+            "dob": body.dob
 
         }
     ]}

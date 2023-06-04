@@ -9,7 +9,7 @@ app = APIRouter(
 )
 
 
-db=get_db()
+db = get_db()
 
 
 @app.get("/validate")
@@ -26,11 +26,9 @@ async def validate_user(username: str, password: str):
                 print("user logged")
                 print(result)
                 return {"message": "Success", "type": result["type"], "access": True}
-                
+
         else:
             return {"message": f"Password for {username} is wrong", "access": False}
-            
+
     else:
         return {"message": "User not found", "access": False}
-        
-
