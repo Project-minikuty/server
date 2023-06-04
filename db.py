@@ -4,7 +4,6 @@ from pymongo import MongoClient
 
 load_dotenv()
 connection_string = os.getenv('ATLAS_URI') 
-print(connection_string) # Update with your MongoDB connection string
 client = MongoClient(connection_string)
 
 db = client["medlab"]

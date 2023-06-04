@@ -12,7 +12,7 @@ def root():
     html_content = """
     <html>
         <head>
-            <title>Some HTML in here</title>
+            <title>Official backend docs of Medlab</title>
             <script>location.replace("/docs");</script>
         </head>
     </html>
