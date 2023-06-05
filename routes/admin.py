@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pymongo import MongoClient
 from bson import ObjectId
 from db import get_db
-from schemas import createUserBody
+from schemas import createUserBody,updateUserBody
 
 app = APIRouter(
     tags=["Admin"]
@@ -54,15 +54,72 @@ async def create_user(admin_id: str, body: createUserBody):
     users = db["users"]
     result = users.insert_one(newUser)
     if result.acknowledged:
-        collection = db[details.get(body.type)[0]]
-        details["_id"] = id
-        res2 = collection.insert_one(details.get(body.type)[1])
+        details[3][1]["_id"]=ObjectId(result.inserted_id)
+        details[2][1]["_id"]=ObjectId(result.inserted_id)
+        details[1][1]["_id"]=ObjectId(result.inserted_id)
+
+        collection = db[details[body.type][0]]
+        res2 = collection.insert_one(details[body.type][1])
         if res2.acknowledged:
             return "User created successfully"
         else:
             return "Error inserting details"
     else:
         return "User not created"
+
+
+@app.put("/{admin_id}/update")
+async def update_user(admin_id: str, user_id: str, body: updateUserBody):
+    details = {
+        1: ["admins", {
+            "name": body.name,
+            "username": body.username
+        }],
+        2: ["doctors", {
+            "name": body.name,
+            "username": body.username
+        }],
+        3: ["parents", {
+            "name": body.name,
+            "username": body.username,
+            "age": body.age,
+            "height": body.height,
+            "weight": body.weight,
+            "gender": body.gender,
+            "bloodGroup": body.bloodGroup,
+            "guardianName": body.guardianName,
+            "occupation": body.occupation,
+            "phoneNumber": body.phoneNumber,
+            "address": body.address,
+            "dob": body.dob
+        }]
+    }
+
+    user_collection = db["users"]
+    user = user_collection.find_one({"_id": ObjectId(user_id)},{"_id":0})
+    if not user:
+        return {"message": "User not found"}
+    if await user_exists(body.username) :
+        if  user["username"]!=body.username:
+            return {"message":"Username already taken",
+                    "name":user}
+
+    update_data = {
+        "$set": {
+            "username": body.username,
+            "password": body.password,
+            "type": body.type
+        }
+    }
+    user_collection.update_one({"_id": ObjectId(user_id)}, update_data)
+
+    collection = db[details[body.type][0]]
+    update_data = {
+        "$set": details[body.type][1]
+    }
+    collection.update_one({"_id": ObjectId(user_id)}, update_data)
+
+    return {"message": "User updated successfully"}
 
 
 @app.post("/{admin_id}/suspend")
