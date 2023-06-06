@@ -49,4 +49,11 @@ async def custom_http_exception_handler(request, exc):
 @app.get("/notFound")
 @app.post("/notFound")
 def notFound():
-    return {"message": "invalid path "}
+    return {
+    "success": 'false',
+    "message": 'Page not found',
+    "error": {
+      "statusCode": 404,
+      "message": 'You reached a route that is not defined on this server',
+    },
+  }

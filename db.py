@@ -14,7 +14,8 @@ def c2j(name):
     names = []
     for n in name:
         d = dict(n)
-        d["_id"]=str(d["_id"])
+        if d.get("_id"):
+            d["_id"]=str(d["_id"])
         names.append(d)
     return names
 

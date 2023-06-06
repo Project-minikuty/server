@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from bson import ObjectId
-from db import  get_db
+from db import  c2j, get_db
 from datetime import date, datetime
 
 
@@ -10,11 +10,19 @@ app = APIRouter(
 )
 
 @app.get("/patients")
-def patient_list():
+def patient_list(username :str):
     d = db["doctors"]
-    p = d.find({"patients":1,"_id":0})
-    return p
-@app.get("/appointments")
-def appointment_list(date_ :str = str(datetime.now().date())):
+    p = d.find_one({"username":username},{"patients":1,"_id":0})
+    return p["patients"] if len(p) else {}
 
-    return date_
+@app.get("/appointments")
+def appointment_list(username:str,date_ :str = str(datetime.now().date())):
+    d = db["doctors"]
+    p = d.find_one({"username":username},{f"appointments.{date_}":1,"_id":0})
+    return p["appointments"].get(date_,[]) if len(p) else {}
+
+@app.put("/cPrescription")
+def create_Prescription():
+    return {}
+
+
