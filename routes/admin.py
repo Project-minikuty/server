@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from pymongo import MongoClient
 from bson import ObjectId
 from db import get_db
 from schemas import createUserBody,updateUserBody
