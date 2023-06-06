@@ -1,13 +1,24 @@
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
-from routes import auth, general, admin
+from routes import auth, general, admin,doctor
 from dotenv import load_dotenv
 from db import get_db
 load_dotenv()
 
+
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -26,6 +37,8 @@ def root():
 app.include_router(auth.app)
 app.include_router(general.app)
 app.include_router(admin.app)
+app.include_router(doctor.app)
+
 
 
 @app.exception_handler(StarletteHTTPException)
