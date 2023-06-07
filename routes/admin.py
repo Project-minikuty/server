@@ -11,8 +11,9 @@ app = APIRouter(
 db = get_db()
 
 
-@app.put("/{admin_id}/create")
+@app.post("/{admin_id}/create")
 async def create_user(admin_id: str, body: createUserBody):
+    type_=int(body.type)
     details = {1: ["admins", {
         "username": body.username,
         "name": body.name
@@ -42,13 +43,14 @@ async def create_user(admin_id: str, body: createUserBody):
     newUser = {
         "username": body.username,
         "password": body.password,
-        "type": body.type,
+        "type": type_,
         "createdBy": admin_id,
         "suspended": False,
     }
 
     if await user_exists(body.username):
-        return {"message": "User already exists"}
+        return {"message": "User already exists",
+                "user":body.username}
 
     users = db["users"]
     result = users.insert_one(newUser)
@@ -58,7 +60,7 @@ async def create_user(admin_id: str, body: createUserBody):
         details[1][1]["_id"]=ObjectId(result.inserted_id)
 
         collection = db[details[body.type][0]]
-        res2 = collection.insert_one(details[body.type][1])
+        res2 = collection.insert_one(details[type_][1])
         if res2.acknowledged:
             return "User created successfully"
         else:
@@ -69,6 +71,7 @@ async def create_user(admin_id: str, body: createUserBody):
 
 @app.patch("/{admin_id}/update")
 async def update_user(admin_id: str, user_id: str, body: updateUserBody):
+    type_=int(body.type)
     details = {
         1: ["admins", {
             "name": body.name,
@@ -107,14 +110,14 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
         "$set": {
             "username": body.username,
             "password": body.password,
-            "type": body.type
+            "type": type_
         }
     }
     user_collection.update_one({"_id": ObjectId(user_id)}, update_data)
 
-    collection = db[details[body.type][0]]
+    collection = db[details[type_][0]]
     update_data = {
-        "$set": details[body.type][1]
+        "$set": details[type_][1]
     }
     collection.update_one({"_id": ObjectId(user_id)}, update_data)
 
@@ -156,4 +159,5 @@ async def reinstate_user(admin_id: str, username: str):
 async def user_exists(username: str) -> bool:
     users = db["users"]
     result = users.find_one({"username": username}, projection={"username": 1})
-    return result is not None
+    print(result)
+    return len(result) != 0

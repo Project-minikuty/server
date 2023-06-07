@@ -5,6 +5,8 @@ from bson import ObjectId
 
 class validateBody(BaseModel):
     username: str | None = "hello"
+    class Config:
+        orm_mode = True
 
 
 class createUserBody(BaseModel):
@@ -22,6 +24,8 @@ class createUserBody(BaseModel):
     occupation: str | None = None
     phoneNumber: str | None = None
     address: str | None = None
+    class Config:
+        orm_mode = True
 
 class updateUserBody(BaseModel):
     username: str
@@ -38,3 +42,5 @@ class updateUserBody(BaseModel):
     occupation: str | None = None
     phoneNumber: str | None = None
     address: str | None = None
+    class Config:
+        orm_mode = True

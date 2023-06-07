@@ -24,7 +24,7 @@ app = FastAPI(title="Medlab backend",
 app.add_middleware(
 
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*","http://localhost:3000' "],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -59,7 +59,7 @@ async def custom_http_exception_handler(request, exc):
 
 @app.get("/notFound")
 @app.post("/notFound")
-@app.put("/notFound")
+@app.post("/notFound")
 @app.patch("/notFound")
 @app.delete("/notFound")
 def notFound():

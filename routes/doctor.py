@@ -21,8 +21,9 @@ def appointment_list(username:str,date_ :str = str(datetime.now().date())):
     p = d.find_one({"username":username},{f"appointments.{date_}":1,"_id":0})
     return p["appointments"].get(date_,[]) if len(p) else {}
 
-@app.put("/cPrescription")
+@app.post("/cPrescription")
 def create_Prescription():
+
     return {}
 
 
