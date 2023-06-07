@@ -10,14 +10,14 @@ db = client["medlab"]
 print("Database connection established")
 
 
-def c2j(name):
-    names = []
-    for n in name:
+def c2j(cursor) -> list[dict]:
+    list = []
+    for n in cursor:
         d = dict(n)
         if d.get("_id"):
             d["_id"]=str(d["_id"])
-        names.append(d)
-    return names
+        list.append(d)
+    return list
 
 
 def get_db():

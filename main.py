@@ -9,10 +9,20 @@ from db import get_db
 load_dotenv()
 
 
-app = FastAPI()
+app = FastAPI(title="Medlab backend",
+              description="This is the docs for the api's used in medlab",
+              version="0.9.12",
+              contact={
+                  "name": "Tomin Joy",
+                  "email": "tominjk007@gmail.com",
+              },
+              
+
+              )
 
 
 app.add_middleware(
+    
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -48,6 +58,9 @@ async def custom_http_exception_handler(request, exc):
 
 @app.get("/notFound")
 @app.post("/notFound")
+@app.put("/notFound")
+@app.patch("/notFound")
+@app.delete("/notFound")
 def notFound():
     return {
     "success": 'false',
@@ -57,3 +70,4 @@ def notFound():
       "message": 'You reached a route that is not defined on this server',
     },
   }
+

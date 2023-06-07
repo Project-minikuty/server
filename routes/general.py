@@ -10,7 +10,7 @@ app = APIRouter(
 
 db = get_db()
 
-@app.post("/sNames")
+@app.get("/sNames")
 async def post_student_names():
     students = db["parents"]
 
@@ -18,21 +18,21 @@ async def post_student_names():
     return c2j(name)
 
 
-@app.post("/dNames")
+@app.get("/dNames")
 async def post_doctor_names():
     doctors = db["doctors"]
     names = doctors.find({}, { "name": 1, "username": 1})
     return c2j(names)
 
 
-@app.post("/aNames")
+@app.get("/aNames")
 async def post_admin_names():
     admins = db["admins"]
     names = admins.find({}, { "name": 1, "username": 1})
     return c2j(names)
 
 
-@app.post("/sDetails")
+@app.get("/sDetails")
 async def post_student_details(id: str):
     students = db["parents"]
     s = students.find({"_id": ObjectId(id)})
@@ -41,7 +41,7 @@ async def post_student_details(id: str):
     return s[0] if len(s) else "user not found"
 
 
-@app.post("/dDetails")
+@app.get("/dDetails")
 async def post_doctor_details(id: str):
     doctors = db["doctors"]
     d = doctors.find({"_id": ObjectId(id)})
@@ -49,7 +49,7 @@ async def post_doctor_details(id: str):
     return d[0] if len(d) else "user not found"
 
 
-@app.post("/aDetails")
+@app.get("/aDetails")
 async def post_admin_details(id: str):
     admins = db["admins"]
     a = admins.find_one({"_id": ObjectId(id)})

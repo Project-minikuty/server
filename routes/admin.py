@@ -121,7 +121,7 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
     return {"message": "User updated successfully"}
 
 
-@app.post("/{admin_id}/suspend")
+@app.patch("/{admin_id}/suspend")
 async def suspend_user(admin_id: str, username: str):
     if await user_exists(username):
         users = db["users"]
@@ -137,7 +137,7 @@ async def suspend_user(admin_id: str, username: str):
         return {"message": "User not found", "success": False}
 
 
-@app.post("/{admin_id}/reinstate")
+@app.patch("/{admin_id}/reinstate")
 async def reinstate_user(admin_id: str, username: str):
     if await user_exists(username):
         users = db["users"]
