@@ -21,8 +21,7 @@ async def validate_user(username: str, password: str):
 				return {"message": "User suspended by admin", "access": False}
 			else:
 				print("user logged")
-				print(result)
-				return {"message": "Success", "type": result["type"], "access": True}
+				return {"message": "Success", "details":result, "access": True}
 
 		else:
 			return {"message": f"Password for {username} is wrong", "access": False}

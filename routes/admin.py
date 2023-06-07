@@ -50,7 +50,7 @@ async def create_user(admin_id: str, body: createUserBody):
 
     if await user_exists(body.username):
         return {"message": "User already exists",
-                "user":body.username}
+                "success":False}
 
     users = db["users"]
     result = users.insert_one(newUser)
@@ -62,11 +62,14 @@ async def create_user(admin_id: str, body: createUserBody):
         collection = db[details[body.type][0]]
         res2 = collection.insert_one(details[type_][1])
         if res2.acknowledged:
-            return "User created successfully"
+            return {"message":"User created successfully",
+                    "success":True}
         else:
-            return "Error inserting details"
+            return {"message":"Error inserting details",
+                    "success":False}
     else:
-        return "User not created"
+        return {"message":"Error inserting details",
+                    "success":False}
 
 
 @app.patch("/{admin_id}/update")
@@ -159,5 +162,4 @@ async def reinstate_user(admin_id: str, username: str):
 async def user_exists(username: str) -> bool:
     users = db["users"]
     result = users.find_one({"username": username}, projection={"username": 1})
-    print(result)
     return len(result) != 0
