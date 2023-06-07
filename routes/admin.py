@@ -11,7 +11,7 @@ app = APIRouter(
 db = get_db()
 
 
-@app.post("/{admin_id}/create")
+@app.put("/{admin_id}/create")
 async def create_user(admin_id: str, body: createUserBody):
     details = {1: ["admins", {
         "username": body.username,
@@ -67,7 +67,7 @@ async def create_user(admin_id: str, body: createUserBody):
         return "User not created"
 
 
-@app.put("/{admin_id}/update")
+@app.patch("/{admin_id}/update")
 async def update_user(admin_id: str, user_id: str, body: updateUserBody):
     details = {
         1: ["admins", {

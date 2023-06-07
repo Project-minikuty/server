@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
-from routes import auth, general, admin,doctor
+from routes import auth, general, admin,doctor,parent
 from dotenv import load_dotenv
 from db import get_db
 load_dotenv()
@@ -22,7 +22,7 @@ app = FastAPI(title="Medlab backend",
 
 
 app.add_middleware(
-    
+
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -48,6 +48,7 @@ app.include_router(auth.app)
 app.include_router(general.app)
 app.include_router(admin.app)
 app.include_router(doctor.app)
+app.include_router(parent.app)
 
 
 
