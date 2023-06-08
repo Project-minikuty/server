@@ -41,6 +41,7 @@ def root():
         </head>
     </html>
     """
+    
     return HTMLResponse(content=html_content, status_code=200)
 
 
