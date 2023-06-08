@@ -162,4 +162,4 @@ async def reinstate_user(admin_id: str, username: str):
 async def user_exists(username: str) -> bool:
     users = db["users"]
     result = users.find_one({"username": username}, projection={"username": 1})
-    return len(result) != 0
+    return result is not None
