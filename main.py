@@ -24,7 +24,7 @@ app = FastAPI(title="Medlab backend",
 app.add_middleware(
 
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=['*',"https://medlab-mini.netlify.app ","http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,7 +41,7 @@ def root():
         </head>
     </html>
     """
-    
+
     return HTMLResponse(content=html_content, status_code=200)
 
 
