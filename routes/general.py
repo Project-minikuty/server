@@ -10,26 +10,17 @@ app = APIRouter(
 
 db = get_db()
 
-@app.get("/sNames")
-async def post_student_names():
-    students = db["parents"]
-
-    name = students.find({}, { "name": 1, "username": 1})
-    return c2j(name)
 
 
-@app.get("/dNames")
-async def post_doctor_names():
-    doctors = db["doctors"]
-    names = doctors.find({}, { "name": 1, "username": 1})
+
+@app.get("/Names")
+async def post_doctor_names(type :int):
+    doctors = db["users"]
+    names = doctors.find({"type":type}, { "name": 1, "username": 1,"suspended":1})
     return c2j(names)
 
 
-@app.get("/aNames")
-async def post_admin_names():
-    admins = db["admins"]
-    names = admins.find({}, { "name": 1, "username": 1})
-    return c2j(names)
+
 
 
 @app.get("/sDetails")

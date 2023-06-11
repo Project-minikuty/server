@@ -46,6 +46,7 @@ async def create_user(admin_id: str, body: createUserBody):
         "type": type_,
         "createdBy": admin_id,
         "suspended": False,
+        "name":body.name
     }
 
     if await user_exists(body.username):
@@ -113,7 +114,8 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
         "$set": {
             "username": body.username,
             "password": body.password,
-            "type": type_
+            "type": type_,
+            "name":body.name
         }
     }
     user_collection.update_one({"_id": ObjectId(user_id)}, update_data)
