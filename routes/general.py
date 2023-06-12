@@ -14,7 +14,7 @@ db = get_db()
 
 
 @app.get("/Names")
-async def post_doctor_names(type :int):
+async def get_list_of_names(type :int):
     doctors = db["users"]
     names = doctors.find({"type":type}, { "name": 1, "username": 1,"suspended":1})
     return c2j(names)

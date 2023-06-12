@@ -11,4 +11,8 @@ app = APIRouter(
 
 @app.get("/assignments")
 def get_assignments(username :str):
-    return {}
+    return "under construction"
+
+@app.post("/createAppointment")
+def createAppoint(doctor_username :str):
+    return "under construction"
