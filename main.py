@@ -3,7 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
-from routes import auth, general, admin,doctor,parent
+from routes import auth, general, admin,doctor,parent,f_u
 from dotenv import load_dotenv
 from db import get_db
 load_dotenv()
@@ -50,6 +50,7 @@ app.include_router(general.app)
 app.include_router(admin.app)
 app.include_router(doctor.app)
 app.include_router(parent.app)
+app.include_router(f_u.app)
 
 
 
