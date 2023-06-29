@@ -15,8 +15,12 @@ db = get_db()
 
 @app.get("/Names")
 async def get_list_of_names(type :int):
+    if 0<type<4:
+        cons = {"type":type}
+    else :
+        cons={}
     doctors = db["users"]
-    names = doctors.find({"type":type}, { "name": 1, "username": 1,"suspended":1})
+    names = doctors.find(cons, { "name": 1, "username": 1,"suspended":1})
     return c2j(names)
 
 
