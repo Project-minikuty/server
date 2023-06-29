@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from bson import ObjectId
-
+from schemas import onAppoBody,ofAppoBody
 from db import get_db, c2j
 
 app = APIRouter(
@@ -50,3 +50,21 @@ async def post_admin_details(id: str):
     a = admins.find_one({"_id": ObjectId(id)})
     a=c2j(a)
     return a[0] if len(a) else "user not found"
+
+@app.post("/coAppointment")
+async def create_new_online_appointment(body :onAppoBody):
+    onA = db["onAppointments"]
+    result = onA.insert_one(dict(body))
+    if(result.acknowledged):
+        return {"success":True}
+    else:
+        return {"success":False}
+    
+@app.post("/cfAppointment")
+async def create_new_offline_appointment(body :ofAppoBody):
+    onA = db["ofAppointments"]
+    result = onA.insert_one(dict(body))
+    if(result.acknowledged):
+        return {"success":True}
+    else:
+        return {"success":False}

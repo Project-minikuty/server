@@ -26,7 +26,15 @@ class createUserBody(BaseModel):
     address: str | None = None
     class Config:
         orm_mode = True
-
+class onAppoBody(BaseModel):
+    date :str
+    doc:str
+    pat:str
+    room:str
+class ofAppoBody(BaseModel):
+    date :str
+    doc :str
+    pat :str
 class updateUserBody(BaseModel):
     username: str
     password: str
