@@ -22,6 +22,7 @@ def doctors_appointment_list(username: str,aType :str ,date_: str = str(datetime
     d = db[aType]
     p = d.find({
         "doc": username,
+        "date": date_
     }, {"_id": 0})
     return c2j(p)
 @app.get("/pappointments")
