@@ -1,8 +1,7 @@
 from fastapi import APIRouter
 from bson import ObjectId
-from db import  c2j, get_db
+from db import c2j, get_db
 from datetime import date, datetime
-
 
 db = get_db()
 app = APIRouter(
@@ -10,9 +9,17 @@ app = APIRouter(
 )
 
 @app.get("/assignments")
-def get_assignments(username :str):
+def get_assignments(username: str):
     return "under construction"
 
 @app.post("/createAppointment")
-def createAppoint(doctor_username :str):
-    return "under construction"
+def create_appointment(doctor_username: str, time: str, date: date):
+    appointment_data = {
+        "doctor_username": doctor_username,
+        "time": time,
+        "date": date,
+    }
+   
+
+    return {"message": "Appointment created successfully"}
+
