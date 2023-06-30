@@ -9,6 +9,15 @@ class validateBody(BaseModel):
         orm_mode = True
 
 
+class cAssignBody(BaseModel):
+    name :str
+    desc:str
+    pat:str
+    doc:str
+    files:list | None =None
+    class Config:
+        orm_mode = True
+
 class createUserBody(BaseModel):
     username: str
     password: str
