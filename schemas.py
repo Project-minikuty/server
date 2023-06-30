@@ -31,10 +31,12 @@ class onAppoBody(BaseModel):
     doc:str
     pat:str
     room:str
+    time: str
 class ofAppoBody(BaseModel):
     date :str
     doc :str
     pat :str
+    time: str
 class updateUserBody(BaseModel):
     username: str
     password: str
