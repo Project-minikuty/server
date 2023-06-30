@@ -18,6 +18,12 @@ def c2j(cursor) -> list[dict]:
             d["_id"]=str(d["_id"])
         list.append(d)
     return list
+def d2j(d):
+    
+    if d.get("_id"):
+        d["_id"]=str(d["_id"])
+    
+    return d
 
 
 def get_db():
