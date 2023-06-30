@@ -41,19 +41,21 @@ def patients_appointment_list(username: str, aType: str, date_: str = str(dateti
 
 @app.post("/cAssignment")
 def create_new_assignment(body: cAssignBody):
-    a = db['Assignments']
+    a = db['assignments']
     print(body)
     b = {
         "name" : body.name,
         "description" : body.desc,
         "pat":body.pat,
         "doc":body.doc,
-        "files" : body.files
+        "files" : body.files,
+        "status":False
     } if body.files else {
         "name" : body.name,
         "description" : body.desc,
         "pat":body.pat,
         "doc":body.doc,
+        "status":False
         
     }
     res = a.insert_one(b)
