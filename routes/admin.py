@@ -113,7 +113,6 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
     update_data = {
         "$set": {
             "username": body.username,
-            "password": body.password,
             "type": type_,
             "name":body.name
         }

@@ -56,7 +56,6 @@ class ofAppoBody(BaseModel):
     time: str
 class updateUserBody(BaseModel):
     username: str
-    password: str
     name: str
     type: int
     age: int | None = None
