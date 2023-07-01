@@ -18,6 +18,14 @@ class cAssignBody(BaseModel):
     class Config:
         orm_mode = True
 
+class sAssBody(BaseModel):
+    id_: str
+    name: str
+    comments: str
+    doc: str
+    files: list | None =None
+    pat: str
+
 class createUserBody(BaseModel):
     username: str
     password: str
