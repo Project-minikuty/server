@@ -25,8 +25,17 @@ def get_sassignment_list_for_parent(username :str):
 @app.get('/assData/{_id}')
 def get_ass_data(_id):
     a=db["assignments"]
-    res = a.find_one({"_id":ObjectId( _id)})
+    res = a.find_one({"_id":ObjectId( _id)},{"$set":{"graded":True}})
     return d2j(res)
+
+@app.post('/grade/{_id}')
+def grade_ass_data(_id):
+    a=db["assignmentSub"]
+    res = a.update_one({"_id":ObjectId( _id)},{})
+    if res.acknowledged:
+        return {"success":True}
+    else:
+        return {"success":False}
 
 @app.get('/sassData/{_id}')
 def get_sass_data(_id):
