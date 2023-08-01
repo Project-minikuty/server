@@ -48,6 +48,8 @@ def create_new_assignment(body: cAssignBody):
         "description" : body.desc,
         "pat":body.pat,
         "doc":body.doc,
+        "docE":body.docE,
+        "patE":body.patE,
         "files" : body.files,
         "status":False
     } if body.files else {
@@ -55,6 +57,8 @@ def create_new_assignment(body: cAssignBody):
         "description" : body.desc,
         "pat":body.pat,
         "doc":body.doc,
+        "docE":body.docE,
+        "patE":body.patE,
         "status":False
         
     }

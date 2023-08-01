@@ -52,6 +52,8 @@ def sub_assignment(body : sAssBody):
         "_id":ObjectId(body.id_),
         "doc":body.doc,
         "pat":body.pat,
+        "docE":body.docE,
+        "patE":body.patE,
         "files":body.files,
         "graded":False
     } if body.files else {
@@ -60,6 +62,8 @@ def sub_assignment(body : sAssBody):
         "_id":ObjectId(body.id_),
         "doc":body.doc,
         "pat":body.pat,
+        "docE":body.docE,
+        "patE":body.patE,
         "graded":False
         
     }

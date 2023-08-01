@@ -14,6 +14,8 @@ class cAssignBody(BaseModel):
     desc:str
     pat:str
     doc:str
+    docE:str
+    patE:str
     files:list | None =None
     class Config:
         orm_mode = True
@@ -25,6 +27,8 @@ class sAssBody(BaseModel):
     doc: str
     files: list | None =None
     pat: str
+    docE:str
+    patE:str
 
 class createUserBody(BaseModel):
     username: str
