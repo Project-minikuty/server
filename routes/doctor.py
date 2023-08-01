@@ -16,7 +16,15 @@ app = APIRouter(
 def patient_list(username: str):
     d = db["doctors"]
     p = d.find_one({"username": username}, {"patients": 1, "_id": 0})
-    return p["patients"] if len(p) else {}
+    if len(p):
+        query = {"username": {"$in": p["patients"]}}
+        doctors = db["users"]
+        names = doctors.find(query, { "name": 1, "username": 1,"suspended":1})
+    
+        return c2j(names) 
+    else:
+        return []
+    
 
 
 @app.get("/dappointments")
