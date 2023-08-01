@@ -56,6 +56,15 @@ async def create_new_online_appointment(body :onAppoBody):
     onA = db["onAppointments"]
     result = onA.insert_one(dict(body))
     if(result.acknowledged):
+        d = db["doctors"]
+        p = d.find_one({"username": body.doc}, {"patients": 1, "_id": 0})
+        p = p["patients"] if len(p) else []
+        p . append(body.pat)
+        p=set(p)
+        d.update_one(
+            {"username": body.doc},
+            {"$set": {"patients":list(p)}}
+        )
         return {"success":True}
     else:
         return {"success":False}
@@ -65,6 +74,15 @@ async def create_new_offline_appointment(body :ofAppoBody):
     onA = db["ofAppointments"]
     result = onA.insert_one(dict(body))
     if(result.acknowledged):
+        d = db["doctors"]
+        p = d.find_one({"username": body.doc}, {"patients": 1, "_id": 0})
+        p = p["patients"] if len(p) else []
+        p . append(body.pat)
+        p=set(p)
+        d.update_one(
+            {"username": body.doc},
+            {"$set": {"patients":list(p)}}
+        )
         return {"success":True}
     else:
         return {"success":False}
