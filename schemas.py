@@ -31,7 +31,8 @@ class createUserBody(BaseModel):
     password: str
     name: str
     type: int
-    age: int | None = None
+    age: str | None = None
+    email : str | None = None
     height: str | None = None
     weight: str | None = None
     gender: str | None = None
@@ -58,7 +59,8 @@ class updateUserBody(BaseModel):
     username: str
     name: str
     type: int
-    age: int | None = None
+    age: str | None = None
+    email : str | None = None
     height: str | None = None
     weight: str | None = None
     gender: str | None = None

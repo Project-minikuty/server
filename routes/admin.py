@@ -16,18 +16,20 @@ async def create_user(admin_id: str, body: createUserBody):
     type_=int(body.type)
     details = {1: ["admins", {
         "username": body.username,
-        "name": body.name
+        "name": body.name,
+        "email": body.email or body.age
     }],
         2:
         ["doctors", {
             "username": body.username,
-            "name": body.name
+            "name": body.name,
+            "email": body.email or body.age
         }],
         3: [
         "parents", {
             "username": body.username,
             "name": body.name,
-            "age": body.age,
+            "email": body.email or body.age,
             "height": body.height,
             "weight": body.weight,
             "gender": body.gender,
@@ -46,7 +48,8 @@ async def create_user(admin_id: str, body: createUserBody):
         "type": type_,
         "createdBy": admin_id,
         "suspended": False,
-        "name":body.name
+        "name":body.name,
+        "email": body.email or body.age,
     }
 
     if await user_exists(body.username):
@@ -79,16 +82,18 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
     details = {
         1: ["admins", {
             "name": body.name,
-            "username": body.username
+            "username": body.username,
+            "email": body.email or body.age,
         }],
         2: ["doctors", {
             "name": body.name,
-            "username": body.username
+            "username": body.username,
+            "email": body.email or body.age,
         }],
         3: ["parents", {
             "name": body.name,
             "username": body.username,
-            "age": body.age,
+            "email": body.email or body.age,
             "height": body.height,
             "weight": body.weight,
             "gender": body.gender,
@@ -114,7 +119,8 @@ async def update_user(admin_id: str, user_id: str, body: updateUserBody):
         "$set": {
             "username": body.username,
             "type": type_,
-            "name":body.name
+            "name":body.name,
+            "email": body.email or body.age,
         }
     }
     user_collection.update_one({"_id": ObjectId(user_id)}, update_data)
