@@ -74,16 +74,16 @@ def notFound():
     },
   }
 
-@app.get("/a")
-def self_destruct_a(r : Request):
-    base = r.base_url
-    print(r.url)
-    res = requests.get(f"{base}b")
-    return {"hi":"res.content"}
+# @app.get("/a")
+# def self_destruct_a(r : Request):
+#     base = r.base_url
+#     print(r.url)
+#     res = requests.get(f"{base}b")
+#     return {"hi":"res.content"}
 
-@app.get("/b")
-def self_destruct_b(r : Request):
-    base = r.base_url
-    print(r.url)
-    res = requests.get(f"{base}a")
-    return {"hello":"res.content"}
+# @app.get("/b")
+# def self_destruct_b(r : Request):
+#     base = r.base_url
+#     print(r.url)
+#     res = requests.get(f"{base}a")
+#     return {"hello":"res.content"}

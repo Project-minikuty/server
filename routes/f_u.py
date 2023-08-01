@@ -56,3 +56,33 @@ async def delete_file(file_id: str):
         return {"message": "File deleted successfully."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/video/{file_id}")
+async def stream_video(file_id: str):
+    try:
+        file = fs.find_one({"_id": ObjectId(file_id)})
+
+        if file is not None:
+            
+            filename = file.filename
+            # Set the appropriate content-type for video files
+            print("eoor")
+            return StreamingResponse(file, media_type="video/mp4",headers={"Content-Disposition": f"filename={filename}"}) # type: ignore
+
+        raise HTTPException(status_code=404, detail="File not found.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/image/{file_id}")
+async def stream_image(file_id: str):
+    try:
+        file = fs.get(ObjectId(file_id))
+
+        if file is not None:
+            # Set the appropriate content-type for image files
+            response = StreamingResponse(content=file, media_type="image/jpeg")
+            return response
+
+        raise HTTPException(status_code=404, detail="File not found.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
