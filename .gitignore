@@ -111,6 +111,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+medlab_b/
 
 # Spyder project settings
 .spyderproject
